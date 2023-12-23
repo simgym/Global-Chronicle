@@ -1,0 +1,35 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #f5f5f5;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  list-style: none;
+}
+
+.logo h2 {
+  margin: 0;
+  color: #333;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.contents {
+  display: flex;
+  gap: 20px;
+}
+
+.contents li {
+  list-style: none;
+}
+
+.contents a {
+  text-decoration: none;
+  color: #333;
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+
+.contents a:hover {
+  color: #007bff;
+}
