@@ -96,3 +96,27 @@
   color: #007bff;
   font-weight: bold;
 }
+.loading {
+  text-align: center;
+  margin-top: 100px;
+}
+@media (max-width: 600px) {
+  .homepage-header {
+    align-items: flex-start; /* Align items to the start of the container */
+    margin-left: -700px;
+  }
+  .homepage-header button {
+    margin-left: 30px;
+  }
+  .trending_news {
+    display: block;
+  }
+  .trending_news li {
+    flex: 1 0 100%;
+    max-width: 100%;
+  }
+  .Grid_view li {
+    flex: 1 0 calc(50% - 20px);
+    max-width: calc(50% - 20px);
+  }
+}

@@ -33,3 +33,27 @@
 .contents a:hover {
   color: #007bff;
 }
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+  }
+
+  .contents {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: small;
+  }
+  .logo {
+    font-size: large;
+  }
+  .logo h2 {
+    margin-top: 0px;
+    margin-top: 20px;
+  }
+}

@@ -2,7 +2,6 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../Index";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import "./Signup.css";
 
 const Signup = () => {

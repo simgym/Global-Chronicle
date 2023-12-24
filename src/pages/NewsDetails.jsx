@@ -9,12 +9,9 @@ import "./NewsDetails.css";
 
 const NewsDetails = () => {
   const detailsObj = useSelector((state) => state.newsReducer.details);
-  const [isLoading, setIsLoading] = useState(false);
   const [fav, setFav] = useState(false);
 
   const authentication = auth;
-
-  // for checking if user has marked a news item favourite or not
 
   useEffect(() => {
     const checkFav = async () => {
@@ -35,8 +32,6 @@ const NewsDetails = () => {
 
     checkFav();
   }, []);
-
-  //for pushing and removing fav data from database
 
   const favHandler = async () => {
     const database = db;
@@ -67,51 +62,45 @@ const NewsDetails = () => {
 
   return (
     <>
-      {isLoading ? (
-        <h3>Loading...</h3>
-      ) : (
-        <main>
-          <div className="news-heart">
+      <main>
+        <div className="news-heart">
+          <img
+            src={fav ? heartRed : heartOutline}
+            onClick={() => {
+              setFav((prevState) => !prevState);
+              favHandler();
+            }}
+          />
+        </div>
+        <span className="news-details">
+          <div className="image-container">
             <img
-              src={fav ? heartRed : heartOutline}
-              onClick={() => {
-                setFav((prevState) => !prevState);
-                favHandler();
-              }}
+              src={detailsObj.urlToImage ? detailsObj.urlToImage : defaultLogo}
             />
           </div>
-          <span className="news-details">
-            <div className="image-container">
-              <img
-                src={
-                  detailsObj.urlToImage ? detailsObj.urlToImage : defaultLogo
-                }
-              />
-            </div>
-            <div className="text-container">
-              <h1>{detailsObj.title}</h1>
-              <h4>- {detailsObj.author}</h4>
-              <span>
-                {detailsObj.description ? (
-                  detailsObj.description
-                ) : (
-                  <p>No description</p>
-                )}
-              </span>
-              <nav className="link-container">
-                <a
-                  href={detailsObj.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="read-more"
-                >
-                  Read More
-                </a>
-              </nav>
-            </div>
-          </span>
-        </main>
-      )}
+          <div className="text-container">
+            <h1>{detailsObj.title}</h1>
+            <h4>- {detailsObj.author}</h4>
+            <span>
+              {detailsObj.description ? (
+                detailsObj.description
+              ) : (
+                <p>No description</p>
+              )}
+            </span>
+            <nav className="link-container">
+              <a
+                href={detailsObj.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="read-more"
+              >
+                Read More
+              </a>
+            </nav>
+          </div>
+        </span>
+      </main>
     </>
   );
 };

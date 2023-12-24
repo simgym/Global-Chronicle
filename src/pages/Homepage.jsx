@@ -14,20 +14,19 @@ const Homepage = () => {
   const [view, setView] = useState(false);
   const [fav, setFav] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [detailsObj, setDetailsObj] = useState({});
 
   const code = useSelector((state) => state.newsReducer.country);
   const dispatch = useDispatch();
   const authentication = auth;
-
-  // for checking if user has marked a news item favourite or not
 
   useEffect(() => {
     const checkFav = async () => {
       const database = db;
       const idRef = ref(
         database,
-        `News/Fav/${authentication.currentUser.uid}/`
+        authentication.currentUser.uid
+          ? `News/Fav/${authentication.currentUser.uid}/`
+          : null
       );
 
       const snapshot = await get(idRef);
@@ -70,8 +69,6 @@ const Homepage = () => {
     setView((prevState) => !prevState);
   };
 
-  //for pushing and removing fav data from database
-
   const favHandler = async (item) => {
     const database = db;
     const idRef = ref(database, `News/Fav/${authentication.currentUser.uid}/`);
@@ -106,7 +103,7 @@ const Homepage = () => {
   return (
     <>
       {isLoading ? (
-        <h3>Loading...</h3>
+        <h3 className="loading">Loading...</h3>
       ) : (
         <main>
           <div className="homepage-header">
@@ -129,7 +126,6 @@ const Homepage = () => {
                   <img
                     src={fav[item.publishedAt] ? heartRed : heartOutline}
                     onClick={() => {
-                      setDetailsObj(item);
                       setFav((prevState) => ({
                         ...prevState,
                         [item.publishedAt]: !prevState[item.publishedAt],
