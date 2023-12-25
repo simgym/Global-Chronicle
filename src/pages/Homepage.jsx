@@ -19,6 +19,8 @@ const Homepage = () => {
   const dispatch = useDispatch();
   const authentication = auth;
 
+  let url = `https://newsapi.org/v2/top-headlines?country=${code}&apiKey=d8050723b71a46e1aaf19d1b629adb74`;
+
   useEffect(() => {
     const checkFav = async () => {
       const database = db;
@@ -45,10 +47,10 @@ const Homepage = () => {
     checkFav();
   }, []);
 
-  let url = `https://newsapi.org/v2/top-headlines?country=${code}&apiKey=d8050723b71a46e1aaf19d1b629adb74`;
   const fetchData = async () => {
     try {
       setIsLoading(true);
+
       const response = await fetch(url);
       const data = await response.json();
       if (!response.ok) {
@@ -56,9 +58,18 @@ const Homepage = () => {
       }
       console.log(data.articles);
       setArticles(data.articles);
+
+      localStorage.setItem("articles", JSON.stringify(data.articles));
+
       setIsLoading(false);
     } catch (error) {
       console.error(error.code, error.message);
+
+      const cachedData = localStorage.getItem("articles");
+      if (cachedData) {
+        setArticles(JSON.parse(cachedData));
+        setIsLoading(false);
+      }
     }
   };
   useEffect(() => {

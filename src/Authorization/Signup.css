@@ -75,3 +75,6 @@ body {
 .signup a:hover {
   color: #0056b3;
 }
+.login_error {
+  color: red;
+}

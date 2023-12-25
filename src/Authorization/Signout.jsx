@@ -25,7 +25,8 @@ const Signout = () => {
   };
   return (
     <>
-      <main>
+      <main className="signout">
+        <h1>Signout</h1>
         <div className="signout_main">
           <p>Are you sure ?</p>
           <div className="signout_buttons">

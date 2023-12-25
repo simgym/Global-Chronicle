@@ -36,6 +36,10 @@ const Signup = () => {
       setDisplayError("Invalid login credentials");
     } else if (error === "auth/invalid-email") {
       setDisplayError("Invalid Email");
+    } else if (error === "auth/missing-password") {
+      setDisplayError("Password is required ");
+    } else if (error === "auth/weak-password") {
+      setDisplayError("Weak password");
     }
   }, [error]);
 
@@ -49,6 +53,7 @@ const Signup = () => {
   return (
     <>
       <main className="signup">
+        <h1>Signup</h1>
         {error !== null ? (
           <p className="login_error">{displayError}</p>
         ) : undefined}

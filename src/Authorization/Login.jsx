@@ -32,7 +32,10 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (error === "auth/invalid-login-credentials") {
+    if (
+      error === "auth/invalid-login-credentials" ||
+      "auth/invalid-credential"
+    ) {
       setDisplayError("Invalid login credentials");
     } else if (error === "auth/invalid-email") {
       setDisplayError("Invalid Email");
@@ -49,6 +52,7 @@ const Login = () => {
   return (
     <>
       <main className="signup">
+        <h1>Login</h1>
         {error !== null ? (
           <p className="login_error">{displayError}</p>
         ) : undefined}

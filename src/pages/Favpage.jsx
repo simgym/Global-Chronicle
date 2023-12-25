@@ -11,7 +11,6 @@ import "./Homepage.css";
 const FavNews = () => {
   const [dataList, setDataList] = useState([]);
   const [view, setView] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -20,7 +19,6 @@ const FavNews = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setIsLoading(true);
         if (authentication.currentUser) {
           const database = db;
           const idRef = ref(
@@ -38,7 +36,6 @@ const FavNews = () => {
             }
             setDataList(dataArray);
             console.log(dataArray);
-            setIsLoading(false);
           }
         }
       } catch (error) {
@@ -54,45 +51,39 @@ const FavNews = () => {
   };
   return (
     <>
-      {isLoading ? (
-        <h3 className="loading">Loading...</h3>
-      ) : (
-        <main>
-          <div className="homepage-header">
-            <h1>Favourite News</h1>
-            {view ? (
-              <button onClick={toggleHandler}>List</button>
-            ) : (
-              <button onClick={toggleHandler}>Grid</button>
-            )}
-          </div>
-          {authentication.currentUser ? (
-            <ul className={view ? "Grid_view" : "trending_news"}>
-              {dataList.map((item, index) => (
-                <li
-                  key={index}
-                  onClick={() => {
-                    dispatch(newsAction.newsDetails(item));
-                  }}
-                >
-                  <Link to={`/${item.source.id}`}>
-                    <img
-                      src={item.urlToImage ? item.urlToImage : defaultLogo}
-                    />
-                  </Link>
-                  <p>{item.title}</p>
-                </li>
-              ))}
-            </ul>
+      <main>
+        <div className="homepage-header">
+          <h1>Favourite News</h1>
+          {view ? (
+            <button onClick={toggleHandler}>List</button>
           ) : (
-            <span className="unauthorized">
-              <h3>Login</h3>
-              <Link to="/login">here</Link>
-              <h3>to access</h3>
-            </span>
+            <button onClick={toggleHandler}>Grid</button>
           )}
-        </main>
-      )}
+        </div>
+        {authentication.currentUser ? (
+          <ul className={view ? "Grid_view" : "trending_news"}>
+            {dataList.map((item, index) => (
+              <li
+                key={index}
+                onClick={() => {
+                  dispatch(newsAction.newsDetails(item));
+                }}
+              >
+                <Link to={`/${item.source.id}`}>
+                  <img src={item.urlToImage ? item.urlToImage : defaultLogo} />
+                </Link>
+                <p>{item.title}</p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <span className="unauthorized">
+            <h3>Login</h3>
+            <Link to="/login">here</Link>
+            <h3>to access</h3>
+          </span>
+        )}
+      </main>
     </>
   );
 };

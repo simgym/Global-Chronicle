@@ -102,11 +102,11 @@
 }
 @media (max-width: 600px) {
   .homepage-header {
-    align-items: flex-start; /* Align items to the start of the container */
-    margin-left: -700px;
+    align-items: flex-start;
+    margin-left: -720px;
   }
   .homepage-header button {
-    margin-left: 30px;
+    margin-left: 50px;
   }
   .trending_news {
     display: block;
@@ -118,5 +118,8 @@
   .Grid_view li {
     flex: 1 0 calc(50% - 20px);
     max-width: calc(50% - 20px);
+  }
+  .unauthorized {
+    margin-left: 100px;
   }
 }

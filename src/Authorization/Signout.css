@@ -12,6 +12,7 @@
 .signout_main p {
   font-size: 1.5em;
   margin-bottom: 20px;
+  margin-left: 20px;
 }
 
 .signout_buttons {
@@ -45,4 +46,11 @@
 .signout_buttons button:nth-child(2):hover {
   background-color: #065ebc;
   color: white;
+}
+.signout {
+  text-align: center;
+  margin-top: 100px;
+}
+.signout_main {
+  margin-top: -200px;
 }
