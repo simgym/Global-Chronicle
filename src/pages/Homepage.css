@@ -100,6 +100,9 @@
   text-align: center;
   margin-top: 100px;
 }
+.nodata_heading {
+  text-align: center;
+}
 @media (max-width: 600px) {
   .homepage-header {
     align-items: flex-start;

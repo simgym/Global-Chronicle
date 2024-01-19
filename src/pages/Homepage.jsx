@@ -19,7 +19,7 @@ const Homepage = () => {
   const dispatch = useDispatch();
   const authentication = auth;
 
-  let url = `https://newsapi.org/v2/top-headlines?country=${code}&apiKey=d8050723b71a46e1aaf19d1b629adb74`;
+  let url = `https://newsapi.in/newsapi/news.php?key=pR08aoBEQ4oZVhBRg2Tou2f7clhxEZ&category=${code}_state`;
 
   useEffect(() => {
     const checkFav = async () => {
@@ -52,26 +52,30 @@ const Homepage = () => {
       setIsLoading(true);
 
       const response = await fetch(url);
-      const data = await response.json();
       if (!response.ok) {
         throw new Error("Error fetching data");
       }
-      console.log(data.articles);
-      setArticles(data.articles);
+
+      const data = await response.json();
+      console.log(data.News);
+      setArticles(data.News);
 
       localStorage.setItem("articles", JSON.stringify(data.articles));
-
       setIsLoading(false);
     } catch (error) {
       console.error(error.code, error.message);
 
       const cachedData = localStorage.getItem("articles");
-      if (cachedData) {
+      if (cachedData && cachedData !== "undefined") {
         setArticles(JSON.parse(cachedData));
-        setIsLoading(false);
+      } else {
+        setArticles("NO DATA");
       }
+
+      setIsLoading(false);
     }
   };
+
   useEffect(() => {
     fetchData();
   }, [url]);
@@ -126,31 +130,35 @@ const Homepage = () => {
             )}
           </div>
           <ul className={view ? "Grid_view" : "trending_news"}>
-            {articles.map((item, index) => (
-              <li
-                key={index}
-                onClick={() => {
-                  dispatch(newsAction.newsDetails(item));
-                }}
-              >
-                <div className="heart">
-                  <img
-                    src={fav[item.publishedAt] ? heartRed : heartOutline}
-                    onClick={() => {
-                      setFav((prevState) => ({
-                        ...prevState,
-                        [item.publishedAt]: !prevState[item.publishedAt],
-                      }));
-                      favHandler(item);
-                    }}
-                  />
-                </div>
-                <Link to={`/${item.source.id}`}>
-                  <img src={item.urlToImage ? item.urlToImage : defaultLogo} />
-                </Link>
-                <p>{item.title}</p>
-              </li>
-            ))}
+            {Array.isArray(articles) ? (
+              articles.map((item, index) => (
+                <li
+                  key={index}
+                  onClick={() => {
+                    dispatch(newsAction.newsDetails(item));
+                  }}
+                >
+                  <div className="heart">
+                    <img
+                      src={fav[item.publishedAt] ? heartRed : heartOutline}
+                      onClick={() => {
+                        setFav((prevState) => ({
+                          ...prevState,
+                          [item.publishedAt]: !prevState[item.publishedAt],
+                        }));
+                        favHandler(item);
+                      }}
+                    />
+                  </div>
+                  <Link to={`/${item.publishedAt}`}>
+                    <img src={item.image ? item.image : defaultLogo} />
+                  </Link>
+                  <p>{item.title}</p>
+                </li>
+              ))
+            ) : (
+              <h3 className="nodata_heading">NO DATA</h3>
+            )}
           </ul>
         </main>
       )}

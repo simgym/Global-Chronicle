@@ -74,9 +74,7 @@ const NewsDetails = () => {
         </div>
         <span className="news-details">
           <div className="image-container">
-            <img
-              src={detailsObj.urlToImage ? detailsObj.urlToImage : defaultLogo}
-            />
+            <img src={detailsObj.image ? detailsObj.image : defaultLogo} />
           </div>
           <div className="text-container">
             <h1>{detailsObj.title}</h1>
