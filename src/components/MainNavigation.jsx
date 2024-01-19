@@ -83,7 +83,7 @@ const MainNavigation = () => {
 
             <li>
               <select value={selectedCountry} onChange={handleCountryChange}>
-                <option value="">Select a country</option>
+                <option value="">Select Language</option>
                 {languages.map((country, index) => (
                   <option key={index} value={country.code}>
                     {country.name}
